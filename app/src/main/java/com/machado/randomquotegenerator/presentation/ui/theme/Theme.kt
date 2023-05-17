@@ -1,4 +1,4 @@
-package com.machado.randomquotegenerator.ui.theme
+package com.machado.randomquotegenerator.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
