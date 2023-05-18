@@ -1,6 +1,5 @@
 package com.machado.randomquotegenerator.data.repositoryImpl
 
-import android.util.Log
 import com.machado.randomquotegenerator.data.db.QuoteDao
 import com.machado.randomquotegenerator.data.remote.QuoteApi
 import com.machado.randomquotegenerator.domain.model.QuoteUI
@@ -15,20 +14,19 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class QuoteRepositoryImpl(
-    private val dao: QuoteDao,
-    private val api: QuoteApi
+    private val api: QuoteApi,
+    private val dao: QuoteDao
 ) : QuoteRepository {
     override fun getQuotes(): Flow<Resource<List<QuoteUI>>> = flow {
         emit(Resource.Loading())
 
         val savedQuotes = dao.getSavedQuotes().map { it.toQuoteUI() }
-        emit(Resource.Loading(data = savedQuotes))
 
         try {
             val remoteRandomQuotes = api.getRandomQuote()
             if (remoteRandomQuotes.isSuccessful) {
                 remoteRandomQuotes.body()?.let { response ->
-                    emit(Resource.Success(response.map { it.toQuoteUI() }))
+                    emit(Resource.Success(data = response.map { it.toQuoteUI() }))
                 } ?: emit(
                     Resource.Error(
                         "Error in fetching quote, viewing saved quotes now",
@@ -56,14 +54,12 @@ class QuoteRepositoryImpl(
     override fun saveQuote(quoteUI: QuoteUI) {
         CoroutineScope(Dispatchers.IO).launch {
             dao.insertQuote(quote = quoteUI.toQuoteEntity())
-            Log.i("MYTAG", "job done")
         }
-        Log.i("MYTAG", "scope done")
     }
 
     override fun deleteQuote(quoteUI: QuoteUI) {
         CoroutineScope(Dispatchers.IO).launch {
-            dao.deleteQuote(quote = quoteUI.toQuoteEntity())
+            dao.deleteQuote(quoteContent = quoteUI.content)
         }
     }
 }

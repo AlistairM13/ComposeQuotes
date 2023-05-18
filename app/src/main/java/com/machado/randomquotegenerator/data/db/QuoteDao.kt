@@ -1,7 +1,6 @@
 package com.machado.randomquotegenerator.data.db
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -13,9 +12,9 @@ interface QuoteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertQuote(quote: QuoteEntity)
 
-    @Delete
-    suspend fun deleteQuote(quote:QuoteEntity)
+    @Query("DELETE FROM quote WHERE content=:quoteContent")
+    suspend fun deleteQuote(quoteContent: String)
 
     @Query("SELECT * FROM quote")
-    fun getSavedQuotes(): List<QuoteEntity>
+    suspend fun getSavedQuotes(): List<QuoteEntity>
 }
