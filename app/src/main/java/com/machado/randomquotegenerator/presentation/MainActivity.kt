@@ -116,7 +116,8 @@ class MainActivity : ComponentActivity() {
                                         }) {
                                             Icon(
                                                 painter = painterResource(id = R.drawable.icon_save),
-                                                contentDescription = "Save quote"
+                                                contentDescription = "Save quote",
+                                                        tint = Color.Black
                                             )
                                         }
                                         if (state.quotes.size > 1) {
@@ -125,7 +126,8 @@ class MainActivity : ComponentActivity() {
                                             }) {
                                                 Icon(
                                                     painter = painterResource(id = R.drawable.icon_delete),
-                                                    contentDescription = "Delete saved quote"
+                                                    contentDescription = "Delete saved quote",
+                                                    tint = Color.Black
                                                 )
                                             }
                                         }
@@ -136,6 +138,7 @@ class MainActivity : ComponentActivity() {
                                         fontSize = 24.sp,
                                         fontWeight = FontWeight.Bold,
                                         textAlign = TextAlign.Center,
+                                        color = Color.Black,
                                         modifier = Modifier.fillMaxWidth()
                                     )
                                     Spacer(modifier = Modifier.height(16.dp))
@@ -144,6 +147,7 @@ class MainActivity : ComponentActivity() {
                                         fontSize = 16.sp,
                                         fontWeight = FontWeight.Light,
                                         textAlign = TextAlign.End,
+                                        color = Color.Black,
                                         modifier = Modifier.fillMaxWidth()
                                     )
                                     Spacer(modifier = Modifier.height(16.dp))
@@ -161,7 +165,8 @@ class MainActivity : ComponentActivity() {
                                         }) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.icon_random),
-                                            contentDescription = "Save quote"
+                                            contentDescription = "Save quote",
+                                            tint = Color.Black
                                         )
                                     }
                                 }
